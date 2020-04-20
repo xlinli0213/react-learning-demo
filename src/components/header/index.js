@@ -1,8 +1,17 @@
 import React from 'react';
 import './index.scss';
+import Icon from '@components/global/icon';
 
 const Header = () => {
-  return <div className='header'>Header</div>;
+  return (
+    <header className='header'>
+      <h2 className='header-title'>Home</h2>
+      <div className='header-user'>
+        Hello, linli
+        <Icon name='dropdown' />
+      </div>
+    </header>
+  );
 };
 
 export default Header;

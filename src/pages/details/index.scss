@@ -1,0 +1,57 @@
+@import '@assets/scss/color.scss';
+
+.detailsWrapper {
+  padding: 0.2rem;
+  font-size: 0.18rem;
+}
+
+.detailsCard {
+  padding: 0.2rem;
+  background: $-color-bg-white;
+  border-radius: 0.04rem;
+
+  &-row {
+    margin-bottom: 0.3rem;
+
+    &-content {
+      box-sizing: border-box;
+      width: 100%;
+      margin-top: 0.1rem;
+      padding: 0.1rem;
+      border: 0.01rem solid $-color-border-grey;
+      border-radius: 0.02rem;
+    }
+  }
+
+  &-operation {
+    padding: 0.2rem 0.2rem 0 0.2rem;
+    margin: 0 -0.2rem;
+    border-top: 0.01rem solid $-color-border-grey;
+
+    .confirm {
+      padding: 0.1rem 0.2rem;
+      margin-right: 0.2rem;
+      color: $-color-theme-blue;
+      border: 0.01rem solid $-color-theme-blue;
+      border-radius: 0.04rem;
+      background: $-color-theme-light-blue;
+      cursor: pointer;
+    }
+    .confirm:hover {
+      color: $-color-bg-white;
+      background: $-color-theme-blue;
+    }
+    .cancel {
+      padding: 0.1rem 0.2rem;
+      color: $-color-font-grey;
+      border: 0.01rem solid $-color-font-grey;
+      border-radius: 0.04rem;
+      background: $-color-bg-white;
+      cursor: pointer;
+    }
+    .cancel:hover {
+      color: $-color-theme-blue;
+      border: 0.01rem solid $-color-theme-blue;
+    }
+  }
+}

@@ -1,0 +1,81 @@
+@import '@assets/scss/color.scss';
+
+.tableCardWrapper {
+  font-size: 0.16rem;
+  margin-top: 0.2rem;
+  border-radius: 0.04rem;
+  color: $-color-font-grey;
+  background: $-color-bg-white;
+}
+
+.tableCard {
+  width: 100%;
+  text-align: center;
+
+  &-col {
+    padding: 0.18rem 0.2rem;
+    border-bottom: 0.01rem solid $-color-border-grey;
+  }
+
+  &-row:hover {
+    background: $-color-bg-light-grey;
+  }
+
+  &-checkbox {
+    display: none;
+  }
+
+  &-checkbox + label {
+    display: block;
+    width: 0.16rem;
+    height: 0.16rem;
+    cursor: pointer;
+    border: 0.02rem solid $-color-border-grey;
+    border-radius: 0.02rem;
+  }
+
+  &-checkbox:checked + label {
+    border: 0.02rem solid $-color-theme-blue;
+  }
+
+  &-checkbox:checked + label::before {
+    display: block;
+    content: '\2714';
+    text-align: center;
+    font-size: 0.14rem;
+    color: $-color-theme-blue;
+  }
+
+  &-edit {
+    padding: 0.06rem 0.12rem;
+    border: 0.01rem solid $-color-theme-blue;
+    border-radius: 0.04rem;
+    color: $-color-bg-white;
+    background: $-color-theme-blue;
+    cursor: pointer;
+
+    .icon-edit {
+      width: 0.16rem;
+      height: 0.16rem;
+      margin-right: 0.06rem;
+      vertical-align: top;
+    }
+  }
+
+  &-pagination {
+    .icon {
+      width: 0.12rem;
+      height: 0.12rem;
+      padding: 0.04rem;
+      margin: 0 0.1rem;
+      border: 0.01rem solid transparent;
+      vertical-align: text-top;
+    }
+
+    .icon:hover {
+      color: $-color-theme-blue;
+      border: 0.01rem solid $-color-theme-blue;
+      border-radius: 0.02rem;
+    }
+  }
+}

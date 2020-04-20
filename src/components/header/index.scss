@@ -1,3 +1,29 @@
+@import '@assets/scss/color.scss';
+
 .header {
-  color: red;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem;
+  color: $-color-theme-blue;
+  border-bottom: 0.01rem solid $-color-border-grey;
+  background: $-color-bg-white;
+
+  &-title {
+    margin: 0;
+    font-size: 0.28rem;
+    font-weight: 500;
+  }
+
+  &-user {
+    font-size: 0.18rem;
+    cursor: pointer;
+
+    .icon-dropdown {
+      margin-left: 0.1rem;
+      width: 0.16rem;
+      height: 0.16rem;
+      vertical-align: bottom;
+    }
+  }
 }

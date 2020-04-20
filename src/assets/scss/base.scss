@@ -1,0 +1,15 @@
+@import '@assets/scss/color.scss';
+
+html {
+  font-size: 100px;
+  background: $-color-bg-grey;
+  user-select: none;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
