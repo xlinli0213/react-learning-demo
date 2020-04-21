@@ -7,13 +7,17 @@
   font-size: 0.16rem;
   color: $-color-font-grey;
 
-  .icon:hover {
-    color: $-color-font-black;
-  }
-
   &-operation {
+    .icon-add:hover {
+      color: $-color-font-black;
+    }
     .icon-delete {
+      visibility: hidden;
       margin-left: 0.1rem;
+    }
+    .icon-delete.active {
+      visibility: visible;
+      color: $-color-theme-red;
     }
   }
 

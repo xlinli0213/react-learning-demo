@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
-import Toolbar from '@components/toolbar';
-import TableCard from '@components/table-card';
+import Toolbar from './components/toolbar';
+import TableCard from './components/table-card';
 
 const Home = () => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import Icon from '@components/global/icon';
+import Icon from '@components/icon';
 
 const Header = () => {
   return (

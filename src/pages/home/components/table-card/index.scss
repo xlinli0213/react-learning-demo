@@ -62,6 +62,11 @@
     }
   }
 
+  &-edit:hover {
+    background: $-color-theme-light-blue;
+    border: 0.01rem solid $-color-theme-light-blue;
+  }
+
   &-pagination {
     .icon {
       width: 0.12rem;
