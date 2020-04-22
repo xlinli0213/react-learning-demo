@@ -6,12 +6,6 @@ import './index.scss';
 import Icon from '@components/icon';
 
 class TableCard extends Component {
-  constructor(props) {
-    super(props);
-    this.setAllSelected = this.setAllSelected.bind(this);
-    this.changeArticleStatus = this.changeArticleStatus.bind(this);
-  }
-
   render() {
     const { showArticleList } = this.props;
     const selectArticles = showArticleList.filter((article) => article.checked);
@@ -96,26 +90,24 @@ class TableCard extends Component {
     }
   }
 
-  changeArticleStatus(id) {
+  changeArticleStatus = (id) => {
     const newArticleList = this.props.articleList.slice();
     newArticleList.find(
       (article) => article.id === id && (article.checked = !article.checked)
     );
     this.props.changeArticleList(newArticleList);
-  }
+  };
 
-  setAllSelected(e) {
+  setAllSelected = (e) => {
     const newArticleList = this.props.articleList.slice();
-    const shouldSelectedArticles = this.props.showArticleList.map(
-      (article) => article.id
-    );
-    newArticleList.map(
+    newArticleList.forEach(
       (article) =>
-        shouldSelectedArticles.indexOf(article.id) !== -1 &&
-        (article.checked = e.target.checked)
+        this.props.showArticleList.findIndex(
+          (showArticle) => article.id === showArticle.id
+        ) !== -1 && (article.checked = e.target.checked)
     );
     this.props.changeArticleList(newArticleList);
-  }
+  };
 }
 
 const mapState = (state) => ({

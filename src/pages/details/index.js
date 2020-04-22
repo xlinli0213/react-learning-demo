@@ -7,21 +7,11 @@ import './index.scss';
 class Details extends Component {
   constructor(props) {
     super(props);
-    const originDetailsInfo =
-      this.props.articleList.find(
-        (article) => article.id === this.props.match.params.cid
-      ) || {};
     this.state = {
-      originDetailsInfo,
-      detailsInfo: {
-        author: originDetailsInfo.author || '',
-        title: originDetailsInfo.title || '',
-        content: originDetailsInfo.content || '',
-      },
+      originDetailsInfo: {},
+      detailsInfo: {},
       isUpdated: false,
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.setArticle = this.setArticle.bind(this);
   }
 
   render() {
@@ -60,25 +50,39 @@ class Details extends Component {
     );
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const detailsInfo = this.state.detailsInfo;
-    const isUpdated =
-      Object.keys(detailsInfo).every((field) => detailsInfo[field].trim()) &&
-      Object.keys(detailsInfo).findIndex(
-        (field) => detailsInfo[field] !== this.state.originDetailsInfo[field]
-      ) !== -1;
-    if (prevState.isUpdated !== isUpdated) {
-      this.setState({ isUpdated });
-    }
+  componentDidMount() {
+    const originDetailsInfo =
+      this.props.articleList.find(
+        (article) => article.id === this.props.match.params.cid
+      ) || {};
+    this.setState({
+      originDetailsInfo,
+      detailsInfo: {
+        author: originDetailsInfo.author || '',
+        title: originDetailsInfo.title || '',
+        content: originDetailsInfo.content || '',
+      },
+    });
   }
 
-  handleChange(e, field) {
+  handleChange = (e, field) => {
     const newDetailsInfo = Object.assign({}, this.state.detailsInfo);
     newDetailsInfo[field] = e.target.value;
-    this.setState({ detailsInfo: newDetailsInfo });
-  }
+    this.setState({ detailsInfo: newDetailsInfo }, () => {
+      // check if the create button is active
+      const detailsInfo = this.state.detailsInfo;
+      const isUpdated =
+        Object.keys(detailsInfo).every((field) => detailsInfo[field].trim()) &&
+        Object.keys(detailsInfo).findIndex(
+          (field) => detailsInfo[field] !== this.state.originDetailsInfo[field]
+        ) !== -1;
+      if (this.state.isUpdated !== isUpdated) {
+        this.setState({ isUpdated });
+      }
+    });
+  };
 
-  setArticle() {
+  setArticle = () => {
     if (this.state.isUpdated) {
       const articleIndex = this.props.articleList.findIndex(
         (article) => article.id === this.props.match.params.cid
@@ -109,7 +113,7 @@ class Details extends Component {
       this.setState({ isUpdated: false });
       this.props.history.push('/');
     }
-  }
+  };
 }
 
 const mapState = (state) => ({

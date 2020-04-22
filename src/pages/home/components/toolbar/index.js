@@ -11,9 +11,6 @@ class Toolbar extends Component {
     this.state = {
       searchText: '',
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.deleteArticle = this.deleteArticle.bind(this);
-    this.addArticle = this.addArticle.bind(this);
   }
 
   render() {
@@ -48,25 +45,20 @@ class Toolbar extends Component {
     );
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({ searchText: e.target.value });
-  }
+  };
 
-  deleteArticle() {
+  deleteArticle = () => {
     let newArticleList = this.props.articleList.slice();
-    let shouldDeleteArticles = this.props.showArticleList
-      .filter((article) => article.checked)
-      .map((article) => article.id);
-    newArticleList = newArticleList.filter(
-      (article) => shouldDeleteArticles.indexOf(article.id) === -1
-    );
+    newArticleList = newArticleList.filter((article) => !article.checked);
 
     this.props.changeArticleList(newArticleList);
-  }
+  };
 
-  addArticle() {
+  addArticle = () => {
     this.props.history.push(`/details/article-${this.props.cid}`);
-  }
+  };
 }
 
 const mapState = (state) => ({
