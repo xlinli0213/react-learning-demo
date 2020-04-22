@@ -13,10 +13,10 @@ class TableCard extends Component {
   }
 
   render() {
-    const { articleList } = this.props;
-    const selectArticles = articleList.filter((article) => article.checked);
+    const { showArticleList } = this.props;
+    const selectArticles = showArticleList.filter((article) => article.checked);
     const allSelected =
-      selectArticles.length && selectArticles.length === articleList.length;
+      selectArticles.length && selectArticles.length === showArticleList.length;
 
     return (
       <div className='tableCardWrapper'>
@@ -40,14 +40,14 @@ class TableCard extends Component {
             </tr>
           </thead>
           <tbody>
-            {!articleList.length && (
+            {!showArticleList.length && (
               <tr>
                 <td className='tableCard-col align-left' colSpan='5'>
                   No articles satisfying the conditions
                 </td>
               </tr>
             )}
-            {articleList.map((row) => (
+            {showArticleList.map((row) => (
               <tr className='tableCard-row' key={row.id}>
                 <td className='tableCard-col'>
                   <input
@@ -91,7 +91,9 @@ class TableCard extends Component {
   }
 
   componentDidMount() {
-    this.props.getArticleList();
+    if (!this.props.articleList.length) {
+      this.props.getArticleList();
+    }
   }
 
   changeArticleStatus(id) {
@@ -104,13 +106,21 @@ class TableCard extends Component {
 
   setAllSelected(e) {
     const newArticleList = this.props.articleList.slice();
-    newArticleList.map((article) => (article.checked = e.target.checked));
+    const shouldSelectedArticles = this.props.showArticleList.map(
+      (article) => article.id
+    );
+    newArticleList.map(
+      (article) =>
+        shouldSelectedArticles.indexOf(article.id) !== -1 &&
+        (article.checked = e.target.checked)
+    );
     this.props.changeArticleList(newArticleList);
   }
 }
 
 const mapState = (state) => ({
-  articleList: state.home.showArticleList,
+  articleList: state.home.articleList,
+  showArticleList: state.home.showArticleList,
 });
 
 const mapDispatch = (dispatch) => ({

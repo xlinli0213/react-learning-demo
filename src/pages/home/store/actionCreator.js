@@ -11,6 +11,10 @@ export const changeSearchFilter = (searchFilter) => ({
   searchFilter,
 });
 
+export const incrementArticleCid = () => ({
+  type: constants.INCREMENT_ARTICLE_CID,
+});
+
 export const getArticleList = () => {
   return (dispatch) => {
     axios

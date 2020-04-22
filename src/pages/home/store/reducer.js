@@ -4,6 +4,7 @@ const defaultState = {
   articleList: [],
   showArticleList: [],
   searchFilter: null,
+  cid: 5,
 };
 
 const getShowArticleList = (articleList, searchFilter) => {
@@ -28,7 +29,15 @@ const changeArticleList = (state, action) => {
 const changeSearchFilter = (state, action) => {
   return {
     ...state,
+    searchFilter: action.searchFilter,
     showArticleList: getShowArticleList(state.articleList, action.searchFilter),
+  };
+};
+
+const incrementArticleCid = (state, action) => {
+  return {
+    ...state,
+    cid: state.cid + 1,
   };
 };
 
@@ -38,6 +47,8 @@ export default (state = defaultState, action) => {
       return changeArticleList(state, action);
     case constants.CHANGE_SEARCH_FILTER:
       return changeSearchFilter(state, action);
+    case constants.INCREMENT_ARTICLE_CID:
+      return incrementArticleCid(state, action);
     default:
       return state;
   }

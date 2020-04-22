@@ -5,7 +5,7 @@ import Icon from '@components/icon';
 const Header = () => {
   return (
     <header className='header'>
-      <h2 className='header-title'>Home</h2>
+      <h2 className='header-title'>Demo</h2>
       <div className='header-user'>
         Hello, linli
         <Icon name='dropdown' />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { actionCreator } from '../../store';
 import './index.scss';
 import Icon from '@components/icon';
@@ -12,11 +13,13 @@ class Toolbar extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.deleteArticle = this.deleteArticle.bind(this);
+    this.addArticle = this.addArticle.bind(this);
   }
 
   render() {
     const isDeleteActive =
-      this.props.articleList.filter((article) => article.checked).length > 0;
+      this.props.showArticleList.filter((article) => article.checked).length >
+      0;
 
     return (
       <div className='toolbar'>
@@ -43,6 +46,9 @@ class Toolbar extends Component {
       .querySelector('.icon-delete')
       .addEventListener('click', this.deleteArticle, false);
     document
+      .querySelector('.icon-add')
+      .addEventListener('click', this.addArticle, false);
+    document
       .querySelector('.icon-search')
       .addEventListener(
         'click',
@@ -55,6 +61,9 @@ class Toolbar extends Component {
     document
       .querySelector('.icon-delete')
       .removeEventListener('click', this.deleteArticle, false);
+    document
+      .querySelector('.icon-add')
+      .removeEventListener('click', this.addArticle, false);
     document
       .querySelector('.icon-search')
       .removeEventListener(
@@ -70,13 +79,25 @@ class Toolbar extends Component {
 
   deleteArticle() {
     let newArticleList = this.props.articleList.slice();
-    newArticleList = newArticleList.filter((article) => !article.checked);
+    let shouldDeleteArticles = this.props.showArticleList
+      .filter((article) => article.checked)
+      .map((article) => article.id);
+    newArticleList = newArticleList.filter(
+      (article) => shouldDeleteArticles.indexOf(article.id) === -1
+    );
+
     this.props.changeArticleList(newArticleList);
+  }
+
+  addArticle() {
+    this.props.history.push(`/details/article-${this.props.cid}`);
   }
 }
 
 const mapState = (state) => ({
-  articleList: state.home.showArticleList,
+  articleList: state.home.articleList,
+  showArticleList: state.home.showArticleList,
+  cid: state.home.cid,
 });
 
 const mapDispatch = (dispatch) => ({
@@ -88,4 +109,4 @@ const mapDispatch = (dispatch) => ({
   },
 });
 
-export default connect(mapState, mapDispatch)(Toolbar);
+export default withRouter(connect(mapState, mapDispatch)(Toolbar));

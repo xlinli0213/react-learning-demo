@@ -5,6 +5,7 @@
       "id": "article-0",
       "date": "2019-10-01",
       "title": "Gdme Gxztaoto Bowwb Xtaoquoa",
+      "content": "The first article content",
       "author": "Linda",
       "checked": false
     },
@@ -12,6 +13,7 @@
       "id": "article-1",
       "date": "2019-11-01",
       "title": "Kup Jml Rtzgueldta Ynuoepbqko",
+      "content": "The second article content",
       "author": "Donald",
       "checked": false
     },
@@ -19,6 +21,7 @@
       "id": "article-2",
       "date": "2019-12-01",
       "title": "Myfwmi Malqtlfmsb Nfkoxh Krrlp Mqjno",
+      "content": "The third article content",
       "author": "Karen",
       "checked": false
     },
@@ -26,6 +29,7 @@
       "id": "article-3",
       "date": "2020-01-01",
       "title": "Aqyujluj Twqfpsj Mory Cpolsqnlf Uqectje",
+      "content": "The fourth article content",
       "author": "Edward",
       "checked": false
     },
@@ -33,6 +37,7 @@
       "id": "article-4",
       "date": "2020-02-01",
       "title": "Yrefzl Noxbmfk Ycxnvxbik Pofnlvrqrg",
+      "content": "The fifith article content",
       "author": "Sarah",
       "checked": false
     }
