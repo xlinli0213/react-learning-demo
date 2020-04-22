@@ -13,14 +13,12 @@ svgSpriteLoader();
 const App = () => {
   return (
     <Provider store={store}>
-      <>
-        <Header />
-        <Switch>
-          {routes.map((route) => (
-            <NestedRoute {...route} key={route.path} />
-          ))}
-        </Switch>
-      </>
+      <Header />
+      <Switch>
+        {routes.map((route) => (
+          <NestedRoute {...route} key={route.path} />
+        ))}
+      </Switch>
     </Provider>
   );
 };

@@ -17,15 +17,19 @@ class Toolbar extends Component {
   }
 
   render() {
+    const { showArticleList, changeSearchFilter } = this.props;
     const isDeleteActive =
-      this.props.showArticleList.filter((article) => article.checked).length >
-      0;
+      showArticleList.filter((article) => article.checked).length > 0;
 
     return (
       <div className='toolbar'>
         <div className='toolbar-operation'>
-          <Icon name='add' />
-          <Icon name='delete' classes={isDeleteActive ? 'active' : ''} />
+          <Icon name='add' handleClick={this.addArticle} />
+          <Icon
+            name='delete'
+            handleClick={this.deleteArticle}
+            classes={isDeleteActive ? 'active' : ''}
+          />
         </div>
         <div className='toolbar-search'>
           <input
@@ -35,42 +39,13 @@ class Toolbar extends Component {
             value={this.state.searchText}
             onChange={this.handleChange}
           />
-          <Icon name='search' />
+          <Icon
+            name='search'
+            handleClick={() => changeSearchFilter(this.state.searchText)}
+          />
         </div>
       </div>
     );
-  }
-
-  componentDidMount() {
-    document
-      .querySelector('.icon-delete')
-      .addEventListener('click', this.deleteArticle, false);
-    document
-      .querySelector('.icon-add')
-      .addEventListener('click', this.addArticle, false);
-    document
-      .querySelector('.icon-search')
-      .addEventListener(
-        'click',
-        () => this.props.changeSearchFilter(this.state.searchText),
-        false
-      );
-  }
-
-  componentWillUnmount() {
-    document
-      .querySelector('.icon-delete')
-      .removeEventListener('click', this.deleteArticle, false);
-    document
-      .querySelector('.icon-add')
-      .removeEventListener('click', this.addArticle, false);
-    document
-      .querySelector('.icon-search')
-      .removeEventListener(
-        'click',
-        () => this.props.changeSearchFilter(this.state.searchText),
-        false
-      );
   }
 
   handleChange(e) {
