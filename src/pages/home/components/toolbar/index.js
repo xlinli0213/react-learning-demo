@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { actionCreator } from '../../store';
+import { inject, observer } from 'mobx-react';
 import './index.scss';
 import Icon from '@components/icon';
 
+@inject(({ store }) => ({ store: store.home }))
+@observer
 class Toolbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchText: '',
-    };
-  }
-
   render() {
-    const { showArticleList, changeSearchFilter } = this.props;
-    const isDeleteActive =
-      showArticleList.filter((article) => article.checked).length > 0;
+    const {
+      currentSearchFilter,
+      changeSearchFilter,
+      changeCurrentSearchFilter,
+      isDeleteActive,
+      deleteArticle,
+    } = this.props.store;
 
     return (
       <div className='toolbar'>
@@ -24,7 +22,7 @@ class Toolbar extends Component {
           <Icon name='add' handleClick={this.addArticle} />
           <Icon
             name='delete'
-            handleClick={this.deleteArticle}
+            handleClick={deleteArticle}
             classes={isDeleteActive ? 'active' : ''}
           />
         </div>
@@ -33,47 +31,21 @@ class Toolbar extends Component {
             className='toolbar-search-input'
             type='text'
             placeholder='title/author'
-            value={this.state.searchText}
-            onChange={this.handleChange}
+            value={currentSearchFilter}
+            onChange={(e) => changeCurrentSearchFilter(e.target.value)}
           />
           <Icon
             name='search'
-            handleClick={() => changeSearchFilter(this.state.searchText)}
+            handleClick={() => changeSearchFilter(currentSearchFilter)}
           />
         </div>
       </div>
     );
   }
 
-  handleChange = (e) => {
-    this.setState({ searchText: e.target.value });
-  };
-
-  deleteArticle = () => {
-    let newArticleList = this.props.articleList.slice();
-    newArticleList = newArticleList.filter((article) => !article.checked);
-
-    this.props.changeArticleList(newArticleList);
-  };
-
   addArticle = () => {
-    this.props.history.push(`/details/article-${this.props.cid}`);
+    this.props.history.push(`/details/article-${this.props.store.cid}`);
   };
 }
 
-const mapState = (state) => ({
-  articleList: state.home.articleList,
-  showArticleList: state.home.showArticleList,
-  cid: state.home.cid,
-});
-
-const mapDispatch = (dispatch) => ({
-  changeArticleList(articleList) {
-    dispatch(actionCreator.changeArticleList(articleList));
-  },
-  changeSearchFilter(searchFilter) {
-    dispatch(actionCreator.changeSearchFilter(searchFilter));
-  },
-});
-
-export default withRouter(connect(mapState, mapDispatch)(Toolbar));
+export default withRouter(Toolbar);

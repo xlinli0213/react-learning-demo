@@ -1,7 +1,7 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { NestedRoute, routes } from '@router';
 import { Switch } from 'react-router-dom';
+import { Provider } from 'mobx-react';
 import store from './store';
 import 'normalize.css';
 import '@assets/scss/base.scss';

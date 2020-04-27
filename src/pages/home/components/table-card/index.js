@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { actionCreator } from '../../store';
+import { inject, observer } from 'mobx-react';
 import './index.scss';
 import Icon from '@components/icon';
 
+@inject(({ store }) => ({ store: store.home }))
+@observer
 class TableCard extends Component {
   render() {
-    const { showArticleList } = this.props;
-    const selectArticles = showArticleList.filter((article) => article.checked);
-    const allSelected =
-      selectArticles.length && selectArticles.length === showArticleList.length;
+    const {
+      showArticleList,
+      changeArticleStatus,
+      setAllSelected,
+      allSelected,
+    } = this.props.store;
 
     return (
       <div className='tableCardWrapper'>
@@ -23,7 +26,7 @@ class TableCard extends Component {
                   className='tableCard-checkbox'
                   type='checkbox'
                   checked={allSelected}
-                  onChange={(e) => this.setAllSelected(e)}
+                  onChange={(e) => setAllSelected(e)}
                 />
                 <label htmlFor='tableCard-row-all'></label>
               </th>
@@ -49,7 +52,7 @@ class TableCard extends Component {
                     className='tableCard-checkbox'
                     type='checkbox'
                     checked={row.checked}
-                    onChange={() => this.changeArticleStatus(row.id)}
+                    onChange={() => changeArticleStatus(row.id)}
                   />
                   <label htmlFor={row.id}></label>
                 </td>
@@ -83,45 +86,6 @@ class TableCard extends Component {
       </div>
     );
   }
-
-  componentDidMount() {
-    if (!this.props.articleList.length) {
-      this.props.getArticleList();
-    }
-  }
-
-  changeArticleStatus = (id) => {
-    const newArticleList = this.props.articleList.slice();
-    newArticleList.find(
-      (article) => article.id === id && (article.checked = !article.checked)
-    );
-    this.props.changeArticleList(newArticleList);
-  };
-
-  setAllSelected = (e) => {
-    const newArticleList = this.props.articleList.slice();
-    newArticleList.forEach(
-      (article) =>
-        this.props.showArticleList.findIndex(
-          (showArticle) => article.id === showArticle.id
-        ) !== -1 && (article.checked = e.target.checked)
-    );
-    this.props.changeArticleList(newArticleList);
-  };
 }
 
-const mapState = (state) => ({
-  articleList: state.home.articleList,
-  showArticleList: state.home.showArticleList,
-});
-
-const mapDispatch = (dispatch) => ({
-  getArticleList() {
-    dispatch(actionCreator.getArticleList());
-  },
-  changeArticleList(articleList) {
-    dispatch(actionCreator.changeArticleList(articleList));
-  },
-});
-
-export default connect(mapState, mapDispatch)(TableCard);
+export default TableCard;
