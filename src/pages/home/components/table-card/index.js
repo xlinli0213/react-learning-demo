@@ -3,16 +3,13 @@ import { observer } from 'mobx-react';
 import './index.scss';
 import Icon from '@components/icon';
 import DetailsModal from '../details-modal';
-import store from '../../store';
+import pageStore from '../../store';
+import tableCardStore from './store';
 @observer
 class TableCard extends Component {
   render() {
-    const {
-      showArticleList,
-      changeArticleStatus,
-      setAllSelected,
-      allSelected,
-    } = store;
+    const { showArticleList } = pageStore;
+    const { allSelected, setAllSelected, changeArticleStatus } = tableCardStore;
 
     return (
       <div className='tableCardWrapper'>
@@ -89,9 +86,9 @@ class TableCard extends Component {
   }
 
   handleEdit(articleId) {
-    const { changeDetailsModalShow, changeCurrentArticleId } = store;
+    const { changeDetailsModalStatus, changeCurrentArticleId } = pageStore;
     changeCurrentArticleId(articleId);
-    changeDetailsModalShow(true);
+    changeDetailsModalStatus(true);
   }
 }
 

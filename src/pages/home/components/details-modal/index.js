@@ -3,26 +3,22 @@ import { observer } from 'mobx-react';
 import { reaction } from 'mobx';
 import './index.scss';
 import Modal from '@components/modal';
-import detailsStore from './store';
-import homeStore from '../../store';
+import modalStore from './store';
+import pageStore from '../../store';
 
 @observer
 class DetailsModal extends Component {
   constructor(props) {
     super(props);
     this.disposer = reaction(
-      () => homeStore.isDetailsModalShow,
-      (isDetailsModalShow) => {
-        if (isDetailsModalShow) {
-          this.getDetailsInfo();
-        }
-      }
+      () => modalStore.detailsInfo,
+      (detailsInfo) => modalStore.changeCurrentDetailsInfo(detailsInfo)
     );
   }
 
   render() {
-    const { currentDetailsInfo, isUpdated } = detailsStore;
-    const { isDetailsModalShow } = homeStore;
+    const { currentDetailsInfo, isUpdated } = modalStore;
+    const { isDetailsModalShow } = pageStore;
     return (
       <Modal
         title='Edit information'
@@ -50,27 +46,8 @@ class DetailsModal extends Component {
     );
   }
 
-  getDetailsInfo = () => {
-    const detailsInfo = {
-      author: '',
-      title: '',
-      content: '',
-    };
-    homeStore.articleList.find((article) => {
-      return (
-        article.id === homeStore.currentArticleId &&
-        Object.keys(detailsInfo).forEach(
-          (field) => (detailsInfo[field] = article[field])
-        )
-      );
-    });
-    const { changeDetailsInfo, changeCurrentDetailsInfo } = detailsStore;
-    changeDetailsInfo(detailsInfo);
-    changeCurrentDetailsInfo(detailsInfo);
-  };
-
   handleChange = (e, field) => {
-    const { currentDetailsInfo, changeCurrentDetailsInfo } = detailsStore;
+    const { currentDetailsInfo, changeCurrentDetailsInfo } = modalStore;
     changeCurrentDetailsInfo({
       ...currentDetailsInfo,
       [field]: e.target.value,
@@ -82,12 +59,12 @@ class DetailsModal extends Component {
       articleList,
       addArticle,
       modifyArticle,
-      changeDetailsModalShow,
-    } = homeStore;
-    const { currentDetailsInfo, isUpdated, changeDetailsInfo } = detailsStore;
+      changeDetailsModalStatus,
+    } = pageStore;
+    const { currentDetailsInfo, isUpdated } = modalStore;
     if (isUpdated) {
       const articleIndex = articleList.findIndex(
-        (article) => article.id === homeStore.currentArticleId
+        (article) => article.id === pageStore.currentArticleId
       );
       const getDate = () => {
         const date = new Date();
@@ -105,19 +82,18 @@ class DetailsModal extends Component {
       } else {
         addArticle({
           ...currentDetailsInfo,
-          id: homeStore.currentArticleId,
+          id: pageStore.currentArticleId,
           date: getDate(),
           checked: false,
         });
       }
-      changeDetailsInfo(currentDetailsInfo);
-      changeDetailsModalShow(false);
+      changeDetailsModalStatus(false);
     }
   };
 
   reset = () => {
-    const { changeDetailsModalShow } = homeStore;
-    changeDetailsModalShow(false);
+    const { changeDetailsModalStatus } = pageStore;
+    changeDetailsModalStatus(false);
   };
 
   componentWillUnmount() {

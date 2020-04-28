@@ -6,7 +6,6 @@ configure({ enforceActions: 'always' });
 class ArticleListData {
   @observable articleList = [];
   @observable searchFilter = '';
-  @observable currentSearchFilter = '';
   @observable cid = 5;
   @observable currentArticleId = '';
   @observable isDetailsModalShow = false;
@@ -30,46 +29,20 @@ class ArticleListData {
     return showArticleList;
   }
 
-  @computed get allSelected() {
-    const selectArticles = this.showArticleList.filter(
-      (article) => article.checked
-    );
-    return (
-      selectArticles.length &&
-      selectArticles.length === this.showArticleList.length
-    );
-  }
-
-  @computed get isDeleteActive() {
-    return this.showArticleList.filter((article) => article.checked).length > 0;
-  }
-
   @action.bound
   changeSearchFilter(searchFilter) {
     this.searchFilter = searchFilter;
   }
 
   @action.bound
-  changeCurrentSearchFilter(currentSearchFilter) {
-    this.currentSearchFilter = currentSearchFilter;
+  addArticle(article) {
+    this.articleList.push(article);
+    this.cid++;
   }
 
   @action.bound
-  changeArticleStatus(articleId) {
-    this.articleList.find(
-      (article) =>
-        article.id === articleId && (article.checked = !article.checked)
-    );
-  }
-
-  @action.bound
-  setAllSelected(event) {
-    this.articleList.forEach(
-      (article) =>
-        this.showArticleList.findIndex(
-          (showArticle) => article.id === showArticle.id
-        ) !== -1 && (article.checked = event.target.checked)
-    );
+  modifyArticle(articleIndex, article) {
+    this.articleList[articleIndex] = article;
   }
 
   @action.bound
@@ -86,18 +59,7 @@ class ArticleListData {
   }
 
   @action.bound
-  addArticle(article) {
-    this.articleList.push(article);
-    this.cid++;
-  }
-
-  @action.bound
-  modifyArticle(articleIndex, article) {
-    this.articleList[articleIndex] = article;
-  }
-
-  @action.bound
-  changeDetailsModalShow(isDetailsModalShow) {
+  changeDetailsModalStatus(isDetailsModalShow) {
     this.isDetailsModalShow = isDetailsModalShow;
   }
 

@@ -1,10 +1,29 @@
 import { configure, observable, computed, action } from 'mobx';
+import pageStore from '../../store';
 
 configure({ enforceActions: 'always' });
 
 class ArticleData {
-  @observable detailsInfo = {};
   @observable currentDetailsInfo = {};
+
+  @computed get detailsInfo() {
+    const detailsInfo = {
+      author: '',
+      title: '',
+      content: '',
+    };
+    if (pageStore.isDetailsModalShow) {
+      pageStore.articleList.find((article) => {
+        return (
+          article.id === pageStore.currentArticleId &&
+          Object.keys(detailsInfo).forEach(
+            (field) => (detailsInfo[field] = article[field])
+          )
+        );
+      });
+    }
+    return detailsInfo;
+  }
 
   @computed get isUpdated() {
     const checkedField = ['author', 'title', 'content'];
@@ -19,14 +38,9 @@ class ArticleData {
   }
 
   @action.bound
-  changeDetailsInfo(detailsInfo) {
-    this.detailsInfo = detailsInfo;
-  }
-
-  @action.bound
   changeCurrentDetailsInfo(currentDetailsInfo) {
     this.currentDetailsInfo = currentDetailsInfo;
   }
 }
 
-export default new ArticleData();
+export default new ArticleData(pageStore);

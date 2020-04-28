@@ -3,18 +3,18 @@ import { withRouter } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import './index.scss';
 import Icon from '@components/icon';
-import store from '../../store';
+import pageStore from '../../store';
+import toolbarStore from './store';
 
 @observer
 class Toolbar extends Component {
   render() {
+    const { changeSearchFilter, deleteArticle } = pageStore;
     const {
-      currentSearchFilter,
-      changeSearchFilter,
-      changeCurrentSearchFilter,
       isDeleteActive,
-      deleteArticle,
-    } = store;
+      currentSearchFilter,
+      changeCurrentSearchFilter,
+    } = toolbarStore;
 
     return (
       <div className='toolbar'>
@@ -44,9 +44,9 @@ class Toolbar extends Component {
   }
 
   addArticle = () => {
-    const { changeDetailsModalShow, changeCurrentArticleId, cid } = store;
+    const { changeDetailsModalStatus, changeCurrentArticleId, cid } = pageStore;
     changeCurrentArticleId(`article-${cid}`);
-    changeDetailsModalShow(true);
+    changeDetailsModalStatus(true);
   };
 }
 
