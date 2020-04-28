@@ -3,11 +3,13 @@ import { getArticleList } from '@api';
 
 configure({ enforceActions: 'always' });
 
-export default class ArticleListData {
+class ArticleListData {
   @observable articleList = [];
   @observable searchFilter = '';
   @observable currentSearchFilter = '';
   @observable cid = 5;
+  @observable currentArticleId = '';
+  @observable isDetailsModalShow = false;
 
   constructor() {
     getArticleList().then((res) => {
@@ -86,10 +88,23 @@ export default class ArticleListData {
   @action.bound
   addArticle(article) {
     this.articleList.push(article);
+    this.cid++;
   }
 
   @action.bound
   modifyArticle(articleIndex, article) {
     this.articleList[articleIndex] = article;
   }
+
+  @action.bound
+  changeDetailsModalShow(isDetailsModalShow) {
+    this.isDetailsModalShow = isDetailsModalShow;
+  }
+
+  @action.bound
+  changeCurrentArticleId(articleId) {
+    this.currentArticleId = articleId;
+  }
 }
+
+export default new ArticleListData();

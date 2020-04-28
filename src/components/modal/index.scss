@@ -1,0 +1,84 @@
+@import '@assets/scss/color.scss';
+
+.modalWrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $-color-modal-bg-black;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 500ms ease;
+}
+
+.modalWrapper.active {
+  visibility: visible;
+  opacity: 1;
+  transition: all 500ms ease;
+}
+
+.modal {
+  color: $-color-font-black;
+  background: $-color-bg-white;
+  border-radius: 0.04rem;
+  box-shadow: 0 0.02rem 0.12rem 0 $-color-modal-bg-black;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem;
+
+    &-title {
+      margin: 0;
+    }
+
+    .icon-close {
+      width: 0.14rem;
+      height: 0.14rem;
+    }
+  }
+
+  &-content {
+    padding: 0.2rem;
+    border-top: 0.01rem solid $-color-border-grey;
+    border-bottom: 0.01rem solid $-color-border-grey;
+  }
+
+  &-footer {
+    padding: 0.2rem;
+
+    .confirm {
+      padding: 0.1rem 0.2rem;
+      margin-right: 0.2rem;
+      color: $-color-theme-blue;
+      border: 0.01rem solid $-color-theme-blue;
+      border-radius: 0.04rem;
+      background: $-color-theme-light-blue;
+      cursor: not-allowed;
+    }
+    .confirm.active {
+      cursor: pointer;
+    }
+    .confirm.active:hover {
+      color: $-color-bg-white;
+      background: $-color-theme-blue;
+    }
+    .cancel {
+      padding: 0.1rem 0.2rem;
+      color: $-color-font-grey;
+      border: 0.01rem solid $-color-font-grey;
+      border-radius: 0.04rem;
+      background: $-color-bg-white;
+      cursor: pointer;
+    }
+    .cancel:hover {
+      color: $-color-theme-blue;
+      border: 0.01rem solid $-color-theme-blue;
+    }
+  }
+}

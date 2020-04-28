@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import './index.scss';
-
-@inject('store')
+import detailsStore from './store';
+import homeStore from '@pages/home/store';
 @observer
 class Details extends Component {
   render() {
-    const { currentDetailsInfo, isUpdated } = this.props.store.details;
+    const { currentDetailsInfo, isUpdated } = detailsStore;
     return (
       <main className='detailsWrapper'>
         <h3>Edit rowrmation</h3>
@@ -49,26 +49,20 @@ class Details extends Component {
       title: '',
       content: '',
     };
-    this.props.store.home.articleList.find(
+    homeStore.articleList.find(
       (article) =>
         article.id === this.props.match.params.cid &&
         Object.keys(detailsInfo).forEach(
           (field) => (detailsInfo[field] = article[field])
         )
     );
-    const {
-      changeDetailsInfo,
-      changeCurrentDetailsInfo,
-    } = this.props.store.details;
+    const { changeDetailsInfo, changeCurrentDetailsInfo } = detailsStore;
     changeDetailsInfo(detailsInfo);
     changeCurrentDetailsInfo(detailsInfo);
   }
 
   handleChange = (e, field) => {
-    const {
-      currentDetailsInfo,
-      changeCurrentDetailsInfo,
-    } = this.props.store.details;
+    const { currentDetailsInfo, changeCurrentDetailsInfo } = detailsStore;
     changeCurrentDetailsInfo({
       ...currentDetailsInfo,
       [field]: e.target.value,
@@ -76,12 +70,8 @@ class Details extends Component {
   };
 
   setArticle = () => {
-    const { articleList, addArticle, modifyArticle } = this.props.store.home;
-    const {
-      currentDetailsInfo,
-      isUpdated,
-      changeDetailsInfo,
-    } = this.props.store.details;
+    const { articleList, addArticle, modifyArticle } = homeStore;
+    const { currentDetailsInfo, isUpdated, changeDetailsInfo } = detailsStore;
     if (isUpdated) {
       const articleIndex = articleList.findIndex(
         (article) => article.id === this.props.match.params.cid

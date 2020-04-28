@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import './index.scss';
 import Icon from '@components/icon';
-
-@inject(({ store }) => ({ store: store.home }))
+import DetailsModal from '../details-modal';
+import store from '../../store';
 @observer
 class TableCard extends Component {
   render() {
@@ -13,7 +12,7 @@ class TableCard extends Component {
       changeArticleStatus,
       setAllSelected,
       allSelected,
-    } = this.props.store;
+    } = store;
 
     return (
       <div className='tableCardWrapper'>
@@ -60,12 +59,13 @@ class TableCard extends Component {
                 <td className='tableCard-col'>{row.author}</td>
                 <td className='tableCard-col'>{row.date}</td>
                 <td className='tableCard-col'>
-                  <Link to={`/details/${row.id}`}>
-                    <button className='tableCard-edit'>
-                      <Icon name='edit' />
-                      Edit
-                    </button>
-                  </Link>
+                  <button
+                    className='tableCard-edit'
+                    onClick={() => this.handleEdit(row.id)}
+                  >
+                    <Icon name='edit' />
+                    Edit
+                  </button>
                 </td>
               </tr>
             ))}
@@ -83,8 +83,15 @@ class TableCard extends Component {
             </tr>
           </tfoot>
         </table>
+        <DetailsModal />
       </div>
     );
+  }
+
+  handleEdit(articleId) {
+    const { changeDetailsModalShow, changeCurrentArticleId } = store;
+    changeCurrentArticleId(articleId);
+    changeDetailsModalShow(true);
   }
 }
 

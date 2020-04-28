@@ -1,0 +1,20 @@
+@import '@assets/scss/color.scss';
+
+.detailsCard-row {
+  margin-bottom: 0.3rem;
+  width: 75vw;
+
+  &-content {
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 0.1rem;
+    padding: 0.1rem;
+    border: 0.01rem solid $-color-border-grey;
+    border-radius: 0.02rem;
+    font-size: 0.16rem;
+  }
+}
+
+.detailsCard-row:last-of-type {
+  margin-bottom: 0;
+}

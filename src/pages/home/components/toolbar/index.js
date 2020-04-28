@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import './index.scss';
 import Icon from '@components/icon';
+import store from '../../store';
 
-@inject(({ store }) => ({ store: store.home }))
 @observer
 class Toolbar extends Component {
   render() {
@@ -14,7 +14,7 @@ class Toolbar extends Component {
       changeCurrentSearchFilter,
       isDeleteActive,
       deleteArticle,
-    } = this.props.store;
+    } = store;
 
     return (
       <div className='toolbar'>
@@ -44,7 +44,9 @@ class Toolbar extends Component {
   }
 
   addArticle = () => {
-    this.props.history.push(`/details/article-${this.props.store.cid}`);
+    const { changeDetailsModalShow, changeCurrentArticleId, cid } = store;
+    changeCurrentArticleId(`article-${cid}`);
+    changeDetailsModalShow(true);
   };
 }
 
