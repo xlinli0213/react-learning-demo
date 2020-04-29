@@ -13,6 +13,7 @@
   text-align: center;
 
   &-col {
+    height: 0.34rem;
     padding: 0.18rem 0.2rem;
     border-bottom: 0.01rem solid $-color-border-grey;
   }
@@ -29,6 +30,7 @@
     display: block;
     width: 0.16rem;
     height: 0.16rem;
+    margin: 0 auto;
     cursor: pointer;
     border: 0.02rem solid $-color-border-grey;
     border-radius: 0.02rem;
@@ -60,6 +62,11 @@
       margin-right: 0.06rem;
       vertical-align: top;
     }
+  }
+
+  .icon-selected {
+    width: 0.2rem;
+    height: 0.2rem;
   }
 
   &-edit:hover {

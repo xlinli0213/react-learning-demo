@@ -13,3 +13,9 @@ html {
 .align-right {
   text-align: right;
 }
+
+.omit {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
