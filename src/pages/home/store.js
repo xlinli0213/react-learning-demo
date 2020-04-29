@@ -9,6 +9,7 @@ class ArticleListData {
   @observable cid = 5;
   @observable currentArticleId = '';
   @observable isDetailsModalShow = false;
+  @observable isManageOpen = false;
 
   constructor() {
     getArticleList().then((res) => {
@@ -19,7 +20,9 @@ class ArticleListData {
   }
 
   @computed get showArticleList() {
-    let showArticleList = this.articleList;
+    let showArticleList = this.articleList.filter(
+      (article) => !article.selected
+    );
     if (!!this.searchFilter) {
       showArticleList = showArticleList.filter((article) => {
         const regExp = new RegExp(this.searchFilter, 'ig');
@@ -27,6 +30,15 @@ class ArticleListData {
       });
     }
     return showArticleList;
+  }
+
+  @computed get selectedArticleList() {
+    return this.articleList.filter((article) => article.selected);
+  }
+
+  @action.bound
+  changeManageStatus() {
+    this.isManageOpen = !this.isManageOpen;
   }
 
   @action.bound
@@ -55,6 +67,13 @@ class ArticleListData {
             (showArticle) => article.id === showArticle.id
           ) !== -1
         )
+    );
+  }
+
+  @action.bound
+  changeArticleSelected(articleId, flag) {
+    this.articleList.find(
+      (article) => article.id === articleId && (article.selected = flag)
     );
   }
 

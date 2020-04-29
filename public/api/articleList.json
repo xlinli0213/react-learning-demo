@@ -7,7 +7,8 @@
       "title": "Gdme Gxztaoto Bowwb Xtaoquoa",
       "content": "The first article content",
       "author": "Linda",
-      "checked": false
+      "checked": false,
+      "selected": false
     },
     {
       "id": "article-1",
@@ -15,7 +16,8 @@
       "title": "Kup Jml Rtzgueldta Ynuoepbqko",
       "content": "The second article content",
       "author": "Donald",
-      "checked": false
+      "checked": false,
+      "selected": false
     },
     {
       "id": "article-2",
@@ -23,7 +25,8 @@
       "title": "Myfwmi Malqtlfmsb Nfkoxh Krrlp Mqjno",
       "content": "The third article content",
       "author": "Karen",
-      "checked": false
+      "checked": false,
+      "selected": false
     },
     {
       "id": "article-3",
@@ -31,7 +34,8 @@
       "title": "Aqyujluj Twqfpsj Mory Cpolsqnlf Uqectje",
       "content": "The fourth article content",
       "author": "Edward",
-      "checked": false
+      "checked": false,
+      "selected": false
     },
     {
       "id": "article-4",
@@ -39,7 +43,8 @@
       "title": "Yrefzl Noxbmfk Ycxnvxbik Pofnlvrqrg",
       "content": "The fifith article content",
       "author": "Sarah",
-      "checked": false
+      "checked": false,
+      "selected": false
     }
   ]
 }

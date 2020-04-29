@@ -8,7 +8,7 @@ import tableCardStore from './store';
 @observer
 class TableCard extends Component {
   render() {
-    const { showArticleList } = pageStore;
+    const { showArticleList, isManageOpen, changeArticleSelected } = pageStore;
     const { allSelected, setAllSelected, changeArticleStatus } = tableCardStore;
 
     return (
@@ -17,14 +17,18 @@ class TableCard extends Component {
           <thead>
             <tr>
               <th className='tableCard-col'>
-                <input
-                  id='tableCard-row-all'
-                  className='tableCard-checkbox'
-                  type='checkbox'
-                  checked={allSelected}
-                  onChange={(e) => setAllSelected(e)}
-                />
-                <label htmlFor='tableCard-row-all'></label>
+                {isManageOpen && (
+                  <>
+                    <input
+                      id='tableCard-row-all'
+                      className='tableCard-checkbox'
+                      type='checkbox'
+                      checked={allSelected}
+                      onChange={(e) => setAllSelected(e)}
+                    />
+                    <label htmlFor='tableCard-row-all'></label>
+                  </>
+                )}
               </th>
               <th className='tableCard-col'>Title</th>
               <th className='tableCard-col'>Author</th>
@@ -43,14 +47,23 @@ class TableCard extends Component {
             {showArticleList.map((row) => (
               <tr className='tableCard-row' key={row.id}>
                 <td className='tableCard-col'>
-                  <input
-                    id={row.id}
-                    className='tableCard-checkbox'
-                    type='checkbox'
-                    checked={row.checked}
-                    onChange={() => changeArticleStatus(row.id)}
-                  />
-                  <label htmlFor={row.id}></label>
+                  {isManageOpen ? (
+                    <>
+                      <input
+                        id={row.id}
+                        className='tableCard-checkbox'
+                        type='checkbox'
+                        checked={row.checked}
+                        onChange={() => changeArticleStatus(row.id)}
+                      />
+                      <label htmlFor={row.id}></label>
+                    </>
+                  ) : (
+                    <Icon
+                      name='selected'
+                      handleClick={() => changeArticleSelected(row.id, true)}
+                    />
+                  )}
                 </td>
                 <td className='tableCard-col align-left'>{row.title}</td>
                 <td className='tableCard-col'>{row.author}</td>

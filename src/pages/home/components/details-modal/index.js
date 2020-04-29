@@ -85,6 +85,7 @@ class DetailsModal extends Component {
           id: pageStore.currentArticleId,
           date: getDate(),
           checked: false,
+          selected: false,
         });
       }
       changeDetailsModalStatus(false);

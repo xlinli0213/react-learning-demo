@@ -1,0 +1,113 @@
+@import '@assets/scss/color.scss';
+
+.cartWrapper {
+  position: absolute;
+  top: 0.14rem;
+  right: 0.2rem;
+  font-size: 0.16rem;
+  color: $-color-font-grey;
+}
+
+.cart {
+  padding: 0.1rem 0.2rem;
+  background: $-color-bg-light-grey;
+  border: 0.01rem solid $-color-border-light-grey;
+  cursor: pointer;
+
+  .icon-cart {
+    width: 0.18rem;
+    height: 0.18rem;
+    margin-left: 0.04rem;
+    margin-right: -0.02rem;
+    vertical-align: bottom;
+  }
+
+  &-count {
+    position: relative;
+    top: -0.06rem;
+    padding: 0 0.04rem;
+    font-size: 0.12rem;
+    color: $-color-bg-white;
+    background: $-color-theme-red;
+    border: 1px solid $-color-theme-red;
+    border-radius: 0.1rem;
+  }
+}
+
+.cartDrawer {
+  position: absolute;
+  right: 0;
+  z-index: 99;
+  visibility: hidden;
+  width: 55vw;
+  background: $-color-bg-white;
+  border: 0.01rem solid $-color-border-lighter-grey;
+  box-shadow: 0 0 0.05rem $-color-shadow-light-black;
+
+  &-list {
+    margin: 0;
+    padding: 0;
+
+    &-row {
+      cursor: pointer;
+      border-bottom: 0.01rem solid $-color-border-grey;
+    }
+
+    &-row:hover {
+      background: $-color-bg-light-grey;
+    }
+  }
+
+  &-row {
+    margin: 0;
+  }
+
+  &-row,
+  &-list-row {
+    display: flex;
+    align-items: center;
+    padding: 0.18rem 0.2rem;
+  }
+
+  .icon-unselected {
+    width: 0.14rem;
+    height: 0.14rem;
+    margin-right: 0.2rem;
+  }
+
+  .icon-empty-cart {
+    width: 0.4rem;
+    height: 0.4rem;
+    margin-right: 0.1rem;
+  }
+
+  .icon-close {
+    position: absolute;
+    top: 0.1rem;
+    right: 0.1rem;
+    width: 0.14rem;
+    height: 0.14rem;
+  }
+}
+
+.cartWrapper.active {
+  .cart {
+    background: $-color-bg-white;
+    border: 0.01rem solid $-color-border-lighter-grey;
+    box-shadow: 0 0 0.05rem $-color-shadow-light-black;
+  }
+
+  .cartDrawer {
+    visibility: visible;
+  }
+
+  .cartDrawer::before {
+    position: absolute;
+    top: -0.1rem;
+    right: 0;
+    background: $-color-bg-white;
+    content: ' ';
+    width: 1.13rem;
+    height: 0.1rem;
+  }
+}

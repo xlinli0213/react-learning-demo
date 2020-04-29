@@ -8,12 +8,14 @@
   color: $-color-font-grey;
 
   &-operation {
+    .icon-add {
+      margin: 0 0.1rem;
+    }
     .icon-add:hover {
       color: $-color-font-black;
     }
     .icon-delete {
       visibility: hidden;
-      margin-left: 0.1rem;
     }
     .icon-delete.active {
       visibility: visible;

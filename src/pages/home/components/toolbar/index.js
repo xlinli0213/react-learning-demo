@@ -3,13 +3,19 @@ import { withRouter } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import './index.scss';
 import Icon from '@components/icon';
+import Switch from '@components/switch';
 import pageStore from '../../store';
 import toolbarStore from './store';
 
 @observer
 class Toolbar extends Component {
   render() {
-    const { changeSearchFilter, deleteArticle } = pageStore;
+    const {
+      changeSearchFilter,
+      deleteArticle,
+      isManageOpen,
+      changeManageStatus,
+    } = pageStore;
     const {
       isDeleteActive,
       currentSearchFilter,
@@ -19,6 +25,11 @@ class Toolbar extends Component {
     return (
       <div className='toolbar'>
         <div className='toolbar-operation'>
+          <Switch
+            swicthId='manage'
+            switchValue={isManageOpen}
+            handleChange={changeManageStatus}
+          />
           <Icon name='add' handleClick={this.addArticle} />
           <Icon
             name='delete'
