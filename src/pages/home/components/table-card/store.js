@@ -1,9 +1,11 @@
-import { computed, action, configure } from 'mobx';
+import { observable, computed, action, configure } from 'mobx';
 import pageStore from '../../store';
 
 configure({ enforceActions: 'always' });
 
 class TableCardData {
+  @observable pointOfAddToCart = null;
+
   @computed get allSelected() {
     return (
       pageStore.showArticleList.length &&
@@ -24,6 +26,12 @@ class TableCardData {
     pageStore.showArticleList.forEach(
       (showArticle) => (showArticle.checked = event.target.checked)
     );
+  }
+
+  @action.bound
+  handleArticleSelected(articleId, flag, event) {
+    this.pointOfAddToCart = event.currentTarget;
+    pageStore.changeArticleSelected(articleId, flag);
   }
 }
 

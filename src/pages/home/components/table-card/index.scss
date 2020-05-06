@@ -13,6 +13,7 @@
   text-align: center;
 
   &-col {
+    position: relative;
     height: 0.34rem;
     padding: 0.18rem 0.2rem;
     border-bottom: 0.01rem solid $-color-border-grey;

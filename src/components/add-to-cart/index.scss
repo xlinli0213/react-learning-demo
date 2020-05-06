@@ -1,0 +1,19 @@
+@import '@assets/scss/color.scss';
+
+.point-outer.inactive {
+  display: none;
+}
+
+.point-outer {
+  transition: all 0.5s cubic-bezier(0, 0.58, 0.38, 0.96) 0s;
+  position: absolute;
+
+  .point-inner {
+    width: 0.16rem;
+    height: 0.16rem;
+    border: 1px solid $-color-theme-blue;
+    border-radius: 50%;
+    background: $-color-theme-blue;
+    transition: all 0.5s linear 0s;
+  }
+}

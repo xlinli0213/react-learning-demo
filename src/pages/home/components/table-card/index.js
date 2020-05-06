@@ -2,14 +2,21 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import './index.scss';
 import Icon from '@components/icon';
+import AddToCart from '@components/add-to-cart';
 import DetailsModal from '../details-modal';
 import pageStore from '../../store';
 import tableCardStore from './store';
 @observer
 class TableCard extends Component {
   render() {
-    const { showArticleList, isManageOpen, changeArticleSelected } = pageStore;
-    const { allSelected, setAllSelected, changeArticleStatus } = tableCardStore;
+    const { showArticleList, isManageOpen } = pageStore;
+    const {
+      allSelected,
+      setAllSelected,
+      pointOfAddToCart,
+      changeArticleStatus,
+      handleArticleSelected,
+    } = tableCardStore;
 
     return (
       <div className='tableCardWrapper'>
@@ -61,7 +68,9 @@ class TableCard extends Component {
                   ) : (
                     <Icon
                       name='selected'
-                      handleClick={() => changeArticleSelected(row.id, true)}
+                      handleClick={(e) =>
+                        handleArticleSelected(row.id, true, e)
+                      }
                     />
                   )}
                 </td>
@@ -94,6 +103,7 @@ class TableCard extends Component {
           </tfoot>
         </table>
         <DetailsModal />
+        <AddToCart point={pointOfAddToCart} cart='.cartWrapper' />
       </div>
     );
   }

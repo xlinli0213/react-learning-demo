@@ -19,3 +19,22 @@ html {
   overflow: hidden;
   white-space: nowrap;
 }
+
+.fade-enter {
+  opacity: 0;
+  transform: translateY(100%);
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: all 500ms ease-in;
+  transform: translateY(0);
+}
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: all 500ms ease-in;
+  transform: translateY(-100%);
+}

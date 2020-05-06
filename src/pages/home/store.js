@@ -20,6 +20,7 @@ class ArticleListData {
   }
 
   @computed get showArticleList() {
+    // let showArticleList = this.articleList;
     let showArticleList = this.articleList.filter(
       (article) => !article.selected
     );
