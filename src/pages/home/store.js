@@ -10,6 +10,8 @@ class ArticleListData {
   @observable currentArticleId = '';
   @observable isDetailsModalShow = false;
   @observable isManageOpen = false;
+  @observable tableListAnimation = [];
+  @observable cartListAnimation = [];
 
   constructor() {
     getArticleList().then((res) => {
@@ -73,9 +75,89 @@ class ArticleListData {
 
   @action.bound
   changeArticleSelected(articleId, flag) {
+    if (flag) {
+      const showIndex = this.showArticleList.findIndex(
+        (article) => article.id === articleId
+      );
+      this.changeListAnimation({
+        target: 'tableListAnimation',
+        list: 'showArticleList',
+        animationName: 'remove',
+        index: showIndex,
+        interval: 0,
+      });
+      this.changeListAnimation({
+        target: 'tableListAnimation',
+        list: 'showArticleList',
+        animationName: 'list-remove',
+        index: showIndex,
+      });
+    } else {
+      const selectedIndex = this.selectedArticleList.findIndex(
+        (article) => article.id === articleId
+      );
+      // console.log('remove', selectedIndex);
+      this.changeListAnimation({
+        target: 'cartListAnimation',
+        list: 'selectedArticleList',
+        animationName: 'remove',
+        index: selectedIndex,
+        interval: 0,
+      });
+      this.changeListAnimation({
+        target: 'cartListAnimation',
+        list: 'selectedArticleList',
+        animationName: 'list-remove',
+        index: selectedIndex,
+      });
+    }
     this.articleList.find(
       (article) => article.id === articleId && (article.selected = flag)
     );
+    if (!flag) {
+      const showIndex = this.showArticleList.findIndex(
+        (article) => article.id === articleId
+      );
+      this.changeListAnimation({
+        target: 'tableListAnimation',
+        list: 'showArticleList',
+        animationName: 'add',
+        activeAnimationName: 'add-active',
+        index: showIndex,
+        interval: 0,
+        reverse: true,
+      });
+      this.changeListAnimation({
+        target: 'tableListAnimation',
+        list: 'showArticleList',
+        animationName: 'list-add',
+        activeAnimationName: 'list-add-active',
+        index: showIndex,
+        reverse: true,
+      });
+    } else {
+      const selectedIndex = this.selectedArticleList.findIndex(
+        (article) => article.id === articleId
+      );
+      // console.log('add', selectedIndex);
+      this.changeListAnimation({
+        target: 'cartListAnimation',
+        list: 'selectedArticleList',
+        animationName: 'add',
+        activeAnimationName: 'add-active',
+        index: selectedIndex,
+        interval: 0,
+        reverse: true,
+      });
+      this.changeListAnimation({
+        target: 'cartListAnimation',
+        list: 'selectedArticleList',
+        animationName: 'list-add',
+        activeAnimationName: 'cart-list-add-active',
+        index: selectedIndex,
+        reverse: true,
+      });
+    }
   }
 
   @action.bound
@@ -86,6 +168,34 @@ class ArticleListData {
   @action.bound
   changeCurrentArticleId(articleId) {
     this.currentArticleId = articleId;
+  }
+
+  @action.bound
+  changeListAnimation({
+    target,
+    list,
+    animationName,
+    activeAnimationName,
+    index,
+    interval = 500,
+    reverse = false,
+  }) {
+    let self = this;
+    let listLength = this[target].length;
+    for (let i = index, l = listLength; i < l; i++) {
+      (function (i) {
+        setTimeout(
+          () =>
+            runInAction(() => {
+              i < listLength && (self[target][i] = animationName);
+              activeAnimationName &&
+                i === index &&
+                (self[target][i] = activeAnimationName);
+            }),
+          (reverse ? self[list].length - i - 1 : i - index) * interval
+        );
+      })(i);
+    }
   }
 }
 

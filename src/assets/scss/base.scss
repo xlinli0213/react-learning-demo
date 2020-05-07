@@ -20,21 +20,113 @@ html {
   white-space: nowrap;
 }
 
-.fade-enter {
+.hidden {
   opacity: 0;
+  transform: translateY(0);
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.remove {
   transform: translateY(100%);
 }
-.fade-enter-active {
-  opacity: 1;
-  transition: all 500ms ease-in;
-  transform: translateY(0);
-}
-.fade-exit {
-  opacity: 1;
-  transform: translateY(0);
-}
-.fade-exit-active {
-  opacity: 0;
-  transition: all 500ms ease-in;
+
+.add {
   transform: translateY(-100%);
+}
+
+.add-active {
+  opacity: 0;
+}
+
+.list-enter {
+  animation: list-enter 500ms linear forwards;
+}
+
+.list-remove {
+  animation: list-remove 500ms linear forwards;
+}
+
+.list-remove-active {
+  animation: list-remove-active 500ms linear forwards;
+  transform-origin: 0 0;
+}
+
+.list-add {
+  animation: list-add 500ms linear forwards;
+}
+
+.list-add-active {
+  animation: list-add-active 500ms linear forwards;
+  transform-origin: 0 0;
+}
+
+.cart-list-add-active {
+  animation: cart-list-add-active 500ms linear forwards;
+  transform-origin: 0 0;
+}
+
+@keyframes list-enter {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes list-remove {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes list-remove-active {
+  from {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  to {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+}
+
+@keyframes list-add {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes list-add-active {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes cart-list-add-active {
+  from {
+    opacity: 0;
+    width: 0;
+  }
+  to {
+    opacity: 1;
+    width: 100%;
+  }
 }

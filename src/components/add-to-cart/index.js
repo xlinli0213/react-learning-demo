@@ -8,7 +8,7 @@ class AddToCart extends PureComponent {
       <div id='points'>
         {Array(5)
           .fill('')
-          .map((index) => (
+          .map((status, index) => (
             <div key={`ponint-${index}`} className='point-outer inactive'>
               <div className='point-inner'></div>
             </div>

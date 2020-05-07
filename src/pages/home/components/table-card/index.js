@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
+import { reaction } from 'mobx';
 import './index.scss';
 import Icon from '@components/icon';
 import AddToCart from '@components/add-to-cart';
@@ -8,8 +9,16 @@ import pageStore from '../../store';
 import tableCardStore from './store';
 @observer
 class TableCard extends Component {
+  constructor(props) {
+    super(props);
+    this.disposer = reaction(
+      () => pageStore.showArticleList,
+      (list) => (pageStore.tableListAnimation = Array(list.length).fill('show'))
+    );
+  }
+
   render() {
-    const { showArticleList, isManageOpen } = pageStore;
+    const { showArticleList, isManageOpen, tableListAnimation } = pageStore;
     const {
       allSelected,
       setAllSelected,
@@ -51,8 +60,11 @@ class TableCard extends Component {
                 </td>
               </tr>
             )}
-            {showArticleList.map((row) => (
-              <tr className='tableCard-row' key={row.id}>
+            {showArticleList.map((row, index) => (
+              <tr
+                className={`tableCard-row ${tableListAnimation[index]}`}
+                key={row.id}
+              >
                 <td className='tableCard-col'>
                   {isManageOpen ? (
                     <>
@@ -112,6 +124,36 @@ class TableCard extends Component {
     const { changeDetailsModalStatus, changeCurrentArticleId } = pageStore;
     changeCurrentArticleId(articleId);
     changeDetailsModalStatus(true);
+  }
+
+  componentDidMount() {
+    const { changeListAnimation } = pageStore;
+
+    setTimeout(
+      () =>
+        changeListAnimation({
+          target: 'tableListAnimation',
+          list: 'showArticleList',
+          animationName: 'hidden',
+          index: 0,
+          interval: 0,
+        }),
+      0
+    );
+    setTimeout(
+      () =>
+        changeListAnimation({
+          target: 'tableListAnimation',
+          list: 'showArticleList',
+          animationName: 'list-enter',
+          index: 0,
+        }),
+      1
+    );
+  }
+
+  componentWillUnmount() {
+    this.disposer();
   }
 }
 

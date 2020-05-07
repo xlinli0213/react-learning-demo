@@ -39,7 +39,8 @@
   right: 0;
   z-index: 99;
   visibility: hidden;
-  width: 55vw;
+  width: 50vw;
+  height: 80vh;
   background: $-color-bg-white;
   border: 0.01rem solid $-color-border-lighter-grey;
   box-shadow: 0 0 0.05rem $-color-shadow-light-black;
@@ -49,6 +50,7 @@
     padding: 0;
 
     &-row {
+      box-sizing: border-box;
       cursor: pointer;
       border-bottom: 0.01rem solid $-color-border-grey;
     }
